@@ -5,7 +5,7 @@ import org.springframework.lang.NonNull;
 
 import java.text.MessageFormat;
 
-public class MySqlConnHelper extends BaseConnInfo {
+public class MySqlConnHelper extends ABaseConn {
 
     private static final String connStr = "jdbc:mysql://{0}:{1}/{2}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=CONVERT_TO_NULL";
 
@@ -15,6 +15,14 @@ public class MySqlConnHelper extends BaseConnInfo {
     private String password;
     private Integer port;
     private String sConnStr;
+
+    private MySqlConnHelper(@NonNull String name) {
+        super(name);
+    }
+
+    public static MySqlConnHelper builder(@NonNull String name) {
+        return new MySqlConnHelper(name);
+    }
 
     public MySqlConnHelper setConnStr(String connStr) {
         this.sConnStr = connStr;
@@ -46,17 +54,8 @@ public class MySqlConnHelper extends BaseConnInfo {
         return this;
     }
 
-    private MySqlConnHelper(){};
-    private MySqlConnHelper(@NonNull String name){
-        super(name);
-    };
-
-    public static MySqlConnHelper builder(String name) {
-        return new MySqlConnHelper(name);
-    }
-
     @Override
-    public DruidDataSource getDataSource(Integer integer, Integer integer1) {
+    public DruidDataSource getDataSource() {
         DruidDataSource ds = new DruidDataSource();
         if(this.getName() != null && "".equals(ds.getName().trim())) {
             ds.setName(this.getName().trim());
@@ -69,6 +68,7 @@ public class MySqlConnHelper extends BaseConnInfo {
         }
         ds.setUsername(this.userName);
         ds.setPassword(this.password);
+        this.setSourceAttributes(ds, Constant.DEFAULT_QUERY_TIMEOUT, Constant.DEFAULT_MAX_ACTIVE);
         return ds;
     }
 }
