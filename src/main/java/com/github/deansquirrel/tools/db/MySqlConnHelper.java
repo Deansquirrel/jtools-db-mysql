@@ -16,7 +16,7 @@ public class MySqlConnHelper extends ABaseConn {
     private Integer port;
     private String sConnStr;
 
-    private MySqlConnHelper(@NonNull String name) {
+    protected MySqlConnHelper(String name) {
         super(name);
     }
 
@@ -68,7 +68,12 @@ public class MySqlConnHelper extends ABaseConn {
         }
         ds.setUsername(this.userName);
         ds.setPassword(this.password);
-        this.setSourceAttributes(ds, Constant.DEFAULT_QUERY_TIMEOUT, Constant.DEFAULT_MAX_ACTIVE);
+        this.setSourceAttributes(ds);
         return ds;
+    }
+
+    @Override
+    public DruidDataSource getDataSource(Integer queryTimeout, Integer maxActive) {
+        return super.getDataSource(queryTimeout, maxActive);
     }
 }
