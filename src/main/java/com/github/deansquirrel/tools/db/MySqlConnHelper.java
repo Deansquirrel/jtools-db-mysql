@@ -7,7 +7,7 @@ import java.text.MessageFormat;
 
 public class MySqlConnHelper extends ABaseConn {
 
-    private static final String connStr = "jdbc:mysql://{0}:{1}/{2}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=CONVERT_TO_NULL";
+    private static final String connStr = "jdbc:mysql://{0}:{1}/{2}?connectTimeout=10000&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=CONVERT_TO_NULL";
 
     private String server;
     private String dbName;
@@ -62,7 +62,7 @@ public class MySqlConnHelper extends ABaseConn {
         }
         if(this.sConnStr == null || this.sConnStr.equals("")) {
             ds.setUrl(MessageFormat.format(MySqlConnHelper.connStr,
-                    this.server, this.port == null ? 3306 : this.port, this.dbName));
+                    this.server, this.port == null ? Integer.toString(3306) : this.port.toString(), this.dbName));
         } else {
             ds.setUrl(this.sConnStr);
         }
