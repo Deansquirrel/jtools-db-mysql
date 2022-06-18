@@ -5,7 +5,7 @@
   <groupId>com.github.deansquirrel</groupId>
   <artifactId>tools-db-mysql</artifactId>
 <!--   <version>0.0.0</version>-->
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <name>tools-db-mysql</name>
   <url>https://github.com/Deansquirrel/jtools-db-mysql</url>
   <description>tools db mysql</description>

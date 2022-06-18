@@ -27,6 +27,10 @@ public class MySqlLoadHelper {
      * @param connStr 数据库连接配置，格式为 IP|端口|数据库|用户名|密码
      */
     public void addMySQLConn(String connName, String connStr) throws Exception {
+        this.addMySQLConn(connName, connStr, null, null);
+    }
+
+    public void addMySQLConn(String connName, String connStr, Integer queryTimeout, Integer maxActive) throws Exception {
         if(connName == null || "".equals(connName) || connStr == null || "".equals(connStr)) {
             throw new Exception("连接地址或名称不允许为空");
         }
@@ -47,7 +51,7 @@ public class MySqlLoadHelper {
                 .setDbName(configList[2])
                 .setUserName(configList[3])
                 .setPassword(configList[4]);
-        iToolsDbHelper.addDataSource(conn.getName(), conn.getDataSource());
+        iToolsDbHelper.addDataSource(conn.getName(), conn.getDataSource(queryTimeout, maxActive));
     }
 
 }
