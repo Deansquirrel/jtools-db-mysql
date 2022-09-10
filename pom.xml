@@ -2,10 +2,15 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.deansquirrel</groupId>
+  <parent>
+    <groupId>com.github.deansquirrel</groupId>
+    <artifactId>tools-parent</artifactId>
+    <version>0.0.2</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
   <artifactId>tools-db-mysql</artifactId>
 <!--   <version>0.0.0</version>-->
-  <version>0.0.7</version>
+  <version>0.1.0</version>
   <name>tools-db-mysql</name>
   <url>https://github.com/Deansquirrel/jtools-db-mysql</url>
   <description>tools db mysql</description>
@@ -13,6 +18,7 @@
   <properties>
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <tools.db.base>0.1.1</tools.db.base>
   </properties>
 
   <licenses>
@@ -39,32 +45,27 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.github.deansquirrel</groupId>
+      <artifactId>tools-db-base</artifactId>
+      <version>${tools.db.base}</version>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jul-to-slf4j</artifactId>
-      <version>1.7.32</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>5.3.12</version>
       <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.github.deansquirrel</groupId>
-      <artifactId>tools-db-base</artifactId>
-      <version>0.0.6</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.27</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>5.3.12</version>
     </dependency>
   </dependencies>
 
