@@ -1,5 +1,6 @@
 package com.github.deansquirrel.tools.db;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,11 @@ public class MySqlLoadHelper {
         this.addMySQLConn(connName, connStr, null, null);
     }
 
-    public void addMySQLConn(String connName, String connStr, Integer queryTimeout, Integer maxActive) throws Exception {
+    public DruidDataSource getDataSource(String connName, String connStr) throws Exception {
+        return  getDataSource(connName, connStr, null, null);
+    }
+
+    public DruidDataSource getDataSource(String connName, String connStr, Integer queryTimeout, Integer maxActive) throws Exception {
         if(connName == null || "".equals(connName) || connStr == null || "".equals(connStr)) {
             throw new Exception("连接地址或名称不允许为空");
         }
@@ -51,7 +56,11 @@ public class MySqlLoadHelper {
                 .setDbName(configList[2])
                 .setUserName(configList[3])
                 .setPassword(configList[4]);
-        iToolsDbHelper.addDataSource(conn.getName(), conn.getDataSource(queryTimeout, maxActive));
+        return conn.getDataSource(queryTimeout, maxActive);
+    }
+
+    public void addMySQLConn(String connName, String connStr, Integer queryTimeout, Integer maxActive) throws Exception {
+        iToolsDbHelper.addDataSource(connName, getDataSource(connName, connStr, queryTimeout, maxActive));
     }
 
 }
